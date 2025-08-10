@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Salman Patel — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #f8fafc;               /* page background */
+      --card: #ffffff;             /* card background */
+      --text: #0f1724;             /* main text */
+      --muted: #6b7280;            /* secondary text */
+      --accent: #0ea5a4;           /* accent (change this to suit) */
+      --accent-700: #0b8f83;      
+      --radius: 12px;
+      --container: 1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Poppins,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+    .wrap{max-width:var(--container);margin:0 auto;padding:40px 24px}
+
+    /* HEADER / HERO */
+    header.hero{display:flex;gap:40px;align-items:center;padding:30px 0}
+    .hero-left{flex:2}
+    .hero-right{flex:1;display:flex;justify-content:flex-end}
+    h1.name{font-size:2.4rem;margin:0 0 6px 0;font-weight:700}
+    p.lead{margin:0 0 16px 0;color:var(--muted);max-width:680px}
+    .hero-cta{display:flex;gap:12px;margin-top:18px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-700));color:white;box-shadow:0 6px 18px rgba(14,165,164,0.14)}
+    .btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(15,23,36,0.06)}
+
+    .hero-photo{width:260px;height:260px;border-radius:50%;overflow:hidden;box-shadow:0 12px 30px rgba(11,14,30,0.06);border:6px solid rgba(255,255,255,0.7)}
+    .hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* SECTIONS */
+    section{padding:48px 0}
+    h2.section-title{font-size:1.5rem;margin:0 0 18px 0;text-align:center}
+    p.section-sub{max-width:900px;margin:0 auto;color:var(--muted);text-align:center}
+
+    /* SKILLS - categorized */
+    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+    .skill-card{background:var(--card);padding:18px;border-radius:var(--radius);box-shadow:0 6px 18px rgba(12,15,30,0.04)}
+    .skill-card h4{margin:0 0 8px 0;font-size:0.95rem}
+    .skill-tags{display:flex;flex-wrap:wrap;gap:8px}
+    .tag{background:rgba(14,165,164,0.08);color:var(--accent);padding:6px 10px;border-radius:999px;font-weight:600;font-size:0.82rem}
+
+    /* EXPERIENCE TIMELINE */
+    .timeline{position:relative;margin-top:8px;padding-left:18px}
+    .timeline::before{content:'';position:absolute;left:9px;top:6px;bottom:0;width:2px;background:linear-gradient(to bottom,rgba(14,165,164,0.9),rgba(14,165,164,0.3));border-radius:4px}
+    .timeline-item{position:relative;margin:20px 0 24px 28px;padding-left:12px}
+    .timeline-item::before{content:'';position:absolute;left:-28px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--card);border:4px solid var(--accent)}
+    .timeline-item h5{margin:0 0 6px 0}
+    .muted{color:var(--muted);font-size:0.95rem}
+    .bullet-list{margin:8px 0 0 0;padding-left:18px}
+
+    /* CARDS (Projects / Sessions) */
+    .cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    .card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(12,15,30,0.04);transition:transform .28s ease,box-shadow .28s ease}
+    .card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(12,15,30,0.08)}
+    .card img{width:100%;height:130px;object-fit:cover;border-radius:8px;margin-bottom:10px}
+    .card h3{margin:8px 0 6px 0;font-size:1rem}
+    .card a{color:var(--accent);font-weight:600;text-decoration:none}
+
+    /* AWARDS */
+    .awards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .award{background:linear-gradient(180deg,rgba(14,165,164,0.06),rgba(14,165,164,0.02));padding:12px;border-radius:10px}
+
+    /* CONTACT */
+    .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+    .contact-info{background:var(--card);padding:18px;border-radius:12px}
+    .contact-info p{margin:6px 0}
+    .form-control{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+    input[type=text],input[type=email],textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(15,23,36,0.06)}
+    textarea{min-height:120px;resize:vertical}
+
+    footer{padding:22px 0;text-align:center;color:var(--muted);font-size:0.95rem}
+
+    /* REVEAL ANIMATIONS */
+    .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.9,.2,1)}
+    .reveal.in-view{opacity:1;transform:none}
+
+    /* REUSABLE .card for skill/project etc kept consistent */
+
+    /* responsiveness */
+    @media (max-width:980px){
+      .skills-grid{grid-template-columns:repeat(2,1fr)}
+      .hero-right{justify-content:center}
+      .hero-photo{width:200px;height:200px}
+    }
+    @media (max-width:720px){
+      .wrap{padding:20px}
+      header.hero{flex-direction:column-reverse;align-items:center;text-align:center}
+      .hero-left,.hero-right{width:100%}
+      .skills-grid{grid-template-columns:1fr}
+      .contact-wrap{grid-template-columns:1fr}
+      .awards-grid{grid-template-columns:1fr}
+      h1.name{font-size:1.8rem}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="hero-left">
+        <h1 class="name reveal">Salman Patel</h1>
+        <p class="lead reveal"><b>Empowering Future Innovators Through Technology, AI & Motivation.</b></p>
+<p class="lead reveal">Academic Leader & Full Stack Developer | 13+ Years in Program Management, Curriculum Design, and Software Development. Proven ability to Lead and mentor faculty teams in achieving academic excellence through innovative 
+teaching methodologies. Develop and implement effective academic programs, ensuring alignment with industry 
+standards. Cultivate a dynamic learning environment that fosters student engagement and success. </p>
+        <div class="hero-cta reveal">
+          <a class="btn btn-primary" href="SalmanResumeAug25.pdf" download>Download CV</a>
+          <button class="btn btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</button>
+        </div>
+
+        <div style="margin-top:18px" class="reveal">
+          <small class="muted">Based in Karachi, Pakistan • <a href="https://www.linkedin.com/in/salmanalipatel/" target="_blank" style="color:var(--accent)">LinkedIn</a></small>
+        </div>
+      </div>
+
+      <div class="hero-right reveal">
+        <div class="hero-photo">
+          <!-- Replace placeholder with your photo -->
+          <img src="assets/IMG-20240116-WA0095.jpg" alt="Salman Patel">
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="about" class="reveal">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-sub">With over 13 years of rich experience in Computer Science education, I am deeply passionate about creating dynamic, practical, and engaging learning environments that prepare students for the future. My core areas of expertise include web development (PHP, MySQL, ASP.Net Core, C#, SQL Server, Python, Django, Firebase) and mobile app development (Java Android, Dart Flutter, Swift Xcode).<br><br>
+
+Currently, I serve as the Academic Head at Aptech, managing the academic department with responsibilities that span student progress, curriculum design, faculty leadership, and project-based learning. I’m committed to integrating real-world development practices and emerging technologies such as Generative AI and OOP into traditional education.<br><br>
+
+Beyond the classroom, I actively conduct interactive sessions on Generative AI for school students (Grades 8–10), simplifying complex AI concepts through fun activities. I also deliver motivational talks to inspire young minds with stories of growth, resilience, and digital creativity.<br><br>
+
+My mission is to bridge the gap between academia and industry, preparing students to thrive in today’s digital economy with future-ready skills.
+Let’s connect to collaborate on tech education initiatives, AI training, youth empowerment, or to exchange insights about STEM, edtech, and digital transformation in education..</p>
+      </section>
+
+      <section id="skills" class="reveal">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h4>Languages</h4>
+            <div class="skill-tags">
+              <span class="tag">C#</span>
+              <span class="tag">Java</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">Swift</span>
+              <span class="tag">Dart</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <h4>Web & Frameworks</h4>
+            <div class="skill-tags">
+              <span class="tag">ASP.Net Core</span>
+              <span class="tag">PHP</span>
+              <span class="tag">Laravel</span>
+              <span class="tag">WordPress</span>
+              <span class="tag">AngularJS</span>
+              <span class="tag">Django</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <h4>Databases & Tools</h4>
+            <div class="skill-tags">
+              <span class="tag">SQL Server</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">GIT</span>
+              <span class="tag">XCode</span>
+              <span class="tag">Firebase</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <h4>Mobile</h4>
+            <div class="skill-tags">
+              <span class="tag">Flutter</span>
+              <span class="tag">iOS (Xcode)</span>
+              <span class="tag">Android(Java)</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <h4>Teaching & Curriculum</h4>
+            <div class="skill-tags">
+              <span class="tag">Curriculum Design</span>
+              <span class="tag">Classroom Management</span>
+              <span class="tag">Project Based Learning</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <h4>Soft Skills</h4>
+            <div class="skill-tags">
+              <span class="tag">Leadership</span>
+              <span class="tag">Public Speaking</span>
+              <span class="tag">Mentoring</span>
+              <span class="tag">Problem Solving</span>
+              <span class="tag">Time Management</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" class="reveal">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <h5>Viper Academy — Faculty <span class="muted">Feb 2025 – May 2025</span></h5>
+            <p class="muted">Trained 30+ students in web development (HTML, CSS, Bootstrap, JavaScript, MySQL, PHP, Laravel) with 95% project completion.</p>
+            <ul class="bullet-list">
+              <li>Led full-stack project development and practical assessments.</li>
+              <li>Helped students build responsive web pages within first 3 weeks.</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <h5>Viper Academy — Faculty <span class="muted">July 2024 – Oct 2024</span></h5>
+            <p class="muted">Delivered web development course covering HTML, CSS, JavaScript, Bootstrap, AngularJS, Python, Django.</p>
+            <ul class="bullet-list">
+              <li>Implemented project-based learning and guided final project submissions.</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <h5>Aptech Site Center — Center Academic Leader <span class="muted">Feb 2016 – Present</span></h5>
+            <p class="muted">Managed a team of 15+ faculty, redesigned software engineering curriculum and improved student outcomes.</p>
+            <ul class="bullet-list">
+              <li>Improved course quality & student satisfaction by ~25%.</li>
+              <li>Over 85% of graduates secured jobs within six months.</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <h5>Aptech Garden Center — Group Leader <span class="muted">Dec 2012 – Feb 2016</span></h5>
+            <p class="muted">Delivered curriculum and supported student engagement, recognized with multiple teaching awards.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- <section id="projects" class="reveal">
+        <h2 class="section-title">Projects</h2>
+        <div class="cards-grid">
+          <div class="card">
+            <img src="https://via.placeholder.com/480x320.png?text=Project+1" alt="Oriental Solutions">
+            <h3>Oriental Solutions Admin Panel</h3>
+            <a href="https://github.com/salmanalipatel/OSL.git" target="_blank">View on GitHub</a>
+          </div>
+
+          <div class="card">
+            <img src="https://via.placeholder.com/480x320.png?text=Project+2" alt="Marrickville">
+            <h3>Marrickville Martial Arts Club</h3>
+            <a href="https://marrickvillemartialartsclub.com.au/" target="_blank">Visit site</a>
+          </div>
+
+          <div class="card">
+            <img src="https://via.placeholder.com/480x320.png?text=Project+3" alt="Student Management">
+            <h3>Student Management System</h3>
+            <a href="https://azfamtech.com/login" target="_blank">View project</a>
+          </div>
+        </div>
+      </section> -->
+
+      <section id="sessions" class="reveal">
+        <h2 class="section-title">My Recent Sessions &amp; Seminars</h2>
+        <div class="cards-grid">
+          <div class="card">
+            <img src="assets/Nexus.jpg" alt="Session 1">
+            <h3>Session on GEN AI @ Nexus School</h3>
+            <p class="muted">Conducted an engaging Generative AI session at Nexus School, blending live demos, hands-on activities, and motivational insights for Class 9 & 10 students.</p>
+          </div>
+
+          <div class="card">
+            <img src="assets/ImamAskari.jpg" alt="Session 2">
+            <h3>Session on GEN AI @ Imam Hasan Askari School</h3>
+            <p class="muted">Led an interactive Generative AI session at Imam Hasan Askari School, featuring live demos, prompt-engineering activities, and a fun ChatGPT game for Class 9 & 10 students.</p>
+          </div>
+
+          <div class="card">
+            <img src="assets/viper.jpg" alt="Session 3">
+            <h3>JavaScript Code Dry Run Challenge</h3>
+            <p class="muted">Organized a hands-on JavaScript dry run activity where students predicted outputs, explained logic, and built confidence through peer learning.</p>
+          </div>
+
+          <div class="card">
+            <img src="assets/Aptech.jpg" alt="Session 4">
+            <h3>Creative Problem-Solving Workshop</h3>
+            <p class="muted">Led a fun, hands-on session where students tackled challenges, learned problem-solving steps, and discovered the power of creative thinking through real-life stories.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="awards" class="reveal">
+        <h2 class="section-title">Honors &amp; Awards</h2>
+        <div class="awards-grid">
+          <div class="award">
+            <strong>Center Academic Head Excellence Award 2024</strong>
+            <p class="muted">Winner — Best Academic Center recognition for outstanding leadership and results.</p>
+          </div>
+          <div class="award">
+            <strong>Center Academic Head Excellence Award 2022</strong>
+            <p class="muted">1st Runner-up for exemplary leadership and contribution to the Aptech community.</p>
+          </div>
+          <div class="award">
+            <strong>Employee of the Year 2016</strong>
+            <p class="muted">Recognized for exceptional leadership and faculty management.</p>
+          </div>
+          <div class="award">
+            <strong>Top Performer Academics (2014, 2015)</strong>
+            <p class="muted">Awarded for excellence in teaching and student outcomes.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="education" class="reveal">
+        <h2 class="section-title">Education</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <h5>MCS Computer Science <span class="muted">2019 - 2022</span></h5>
+            <p class="muted">Virtual University of Pakistan</p>
+          </div>
+          <div class="timeline-item">
+            <h5>MA International Relations <span class="muted">2010 - 2012</span></h5>
+            <p class="muted">Karachi University</p>
+          </div>
+          <div class="timeline-item">
+            <h5>Advanced Diploma in Software Engineering <span class="muted">2009 - 2012</span></h5>
+            <p class="muted">Aptech Learning Pakistan</p>
+          </div>
+          <div class="timeline-item">
+            <h5>BCom Commerce <span class="muted">2007 - 2008</span></h5>
+            <p class="muted">Karachi University</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="reveal">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-wrap">
+          <div class="contact-info">
+            <h4>Get in touch</h4>
+            <p class="muted">Feel free to reach out for collaborations, speaking engagements, or teaching opportunities.</p>
+            <p><strong>Email:</strong> <a href="mailto:salmanalipatel@gmail.com" style="color:var(--accent)">salmanalipatel@gmail.com</a></p>
+            <p><strong>Phone:</strong> <a href="tel:+923417845502" style="color:var(--accent)">+92-341-7845502</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/salmanalipatel/" target="_blank" style="color:var(--accent)">linkedin.com/in/salmanalipatel</a></p>
+
+<br>
+
+<h4>Follow me on</h4>
+            <p class="muted">Youtube Channel</p>
+            <p><strong></strong> <a href="https://www.youtube.com/channel/UClZY7mShSVcHoAogZlXcr7A" style="color:var(--accent)">Salman Patel Academy</a></p>
+           
+
+ <p class="muted">Teaching Blog</p>
+            <p><strong></strong> <a href="https:/www.salmanalipatel.wordpress.com " style="color:var(--accent)">Java Programming </a></p>
+
+          </div>
+
+          <form id="contact-form" class="card" onsubmit="return false">
+            <div class="form-control">
+              <label for="name">Name</label>
+              <input id="name" type="text" placeholder="Your name" required>
+            </div>
+            <div class="form-control">
+              <label for="email">Email</label>
+              <input id="email" type="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-control">
+              <label for="message">Message</label>
+              <textarea id="message" placeholder="Write your message.." required></textarea>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+              <button class="btn btn-ghost" type="reset">Reset</button>
+              <button id="send-btn" class="btn btn-primary" type="button">Send</button>
+            </div>
+            <small class="muted" style="display:block;margin-top:8px">The form opens your email client to send — no server required.</small>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      &copy; 2025 Salman Patel — Crafted with care.
+    </footer>
+  </div>
+
+  <script>
+    // simple reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting) entry.target.classList.add('in-view');
+      });
+    },{threshold:0.14});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // contact form -> open mailto
+    document.getElementById('send-btn').addEventListener('click',()=>{
+      const name=document.getElementById('name').value.trim();
+      const email=document.getElementById('email').value.trim();
+      const message=document.getElementById('message').value.trim();
+      if(!name||!email||!message){alert('Please fill all fields');return}
+      const subject = encodeURIComponent('Portfolio contact from '+name);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+      window.location.href = `mailto:salmanalipatel@gmail.com?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
